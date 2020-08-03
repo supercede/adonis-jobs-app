@@ -5,7 +5,7 @@ class CreateUser {
     return {
       // validation rules
       username: 'required|unique:users',
-      email: 'required|unique:users',
+      email: 'required|email|unique:users',
       password: 'required',
     };
   }
@@ -14,6 +14,7 @@ class CreateUser {
     return {
       required: 'Sorry, {{ field }} is required.',
       unique: 'Sorry, {{ field }} already exists.',
+      email: 'Sorry, {{ field }} should be a valid email address.',
     };
   }
 
