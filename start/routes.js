@@ -28,3 +28,17 @@ Route.get('/logout', async ({ auth, response }) => {
   await auth.logout();
   return response.redirect('/');
 });
+
+Route.get('/your-jobs', 'JobController.userJobs').middleware(['auth']);
+
+Route.post('/your-jobs', 'JobController.create')
+  .validator('CreateJob')
+  .middleware(['auth']);
+
+Route.group(() => {
+  Route.get('/delete/:id', 'JobController.delete');
+  Route.get('/edit/:id', 'JobController.edit');
+  Route.post('/update/:id', 'JobController.update').validator('CreateJob');
+})
+  .prefix('/your-jobs')
+  .middleware(['auth', 'findJob']);
